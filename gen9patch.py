@@ -1,5 +1,6 @@
 #! /usr/bin/python
 
+import os
 import sys
 from xml.etree.ElementTree import ElementTree
 import subprocess
@@ -17,12 +18,12 @@ def create9PatchSvg(file):
 		else:
 			elem.set('style', 'display:none')
 
-	document.write('9patch.svg')
+	document.write('./temp/9patch.svg')
 		
-def create9PatchForDpi(dpi, name):
-	print subprocess.check_output(["inkscape","-d", str(dpi), "-e", "./out.png", "./9patch.svg"])
+def create9PatchForDpi(file, dpi, name):
+	subprocess.check_output(["inkscape","-d", str(dpi), "-e", "./temp/out.png", "./temp/9patch.svg"])
 
-	im = Image.open("./out.png")
+	im = Image.open("./temp/out.png")
 	pix = im.load()
 	newSize = (im.size[0] +2 , im.size[1] +2)
 	nim = Image.new("RGBA", newSize, (255, 255, 255, 0))
@@ -36,14 +37,21 @@ def create9PatchForDpi(dpi, name):
 		npix[0, y+1] = pix[0, y]
 		npix[newSize[0]-1, y+1] = pix[im.size[0]-1, y]
 
-	print subprocess.check_output(["inkscape","-d", str(dpi), "-e", "./out.png", "./tag.svg"])
+	subprocess.check_output(["inkscape","-d", str(dpi), "-e", "./temp/out.png", file])
 
-	im = Image.open("./out.png")
+	im = Image.open("./temp/out.png")
 	nim.paste(im, (1,1))
 
-	nim.save("./" + name  +  "final.png")
+	filename = os.path.split(file)[1]
+	filename = filename.replace(".svg", ".png")
+
+	nim.save("./res/drawable-" + name  +  "/" + filename)
+
+dir = "./temp"
+if not os.path.exists(dir):
+	os.makedirs(dir)
 
 create9PatchSvg(sys.argv[1]);
 for (dpi, name) in [(320, "xhdpi"), (240, "hdpi"), (160, "mdpi"), (120, "ldpi")]:
-	create9PatchForDpi(dpi, name)
+	create9PatchForDpi(sys.argv[1], dpi, name)
 
