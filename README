@@ -2,4 +2,4 @@ SVG images are scaled and put into appropriate folders for android and the 9 pat
 
 SVG images have a hidden layer called 9patch see tag.svg for an example
 
-./gen9patch.py ./assets/tag.svg
+./gen9patch.py ./assets/tag.9.svg
