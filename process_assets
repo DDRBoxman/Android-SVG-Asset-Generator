@@ -15,12 +15,7 @@ processImage() {
 	inkscape -d 120 -e $1./res/drawable-ldpi/${file/.svg}.png $f
 }
 
-for f in ./assets/images/*.svg;
-do
-	processImage
-done
-
-for f in ./assets/images/Android/*.svg;
+for f in $(find ./assets/ -name *.svg -type f);
 do
 	if [[ "$f" == *.9.svg* ]]; then
 		./gen9patch.py $f $1
