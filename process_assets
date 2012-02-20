@@ -6,20 +6,23 @@
 #When creating svg files set the image size to the size that you want your mdpi images to be.
 
 
-processImage() {
-	echo "Processing $f"
-	file=$(basename $f)
-	inkscape -d 320 -e  $1./res/drawable-xhdpi/${file/.svg}.png $f
-	inkscape -d 240 -e $1./res/drawable-hdpi/${file/.svg}.png $f
-	inkscape -d 160 -e $1./res/drawable-mdpi/${file/.svg}.png $f
-	inkscape -d 120 -e $1./res/drawable-ldpi/${file/.svg}.png $f
+function processImage {
+	echo "Processing $1"
+
+	file=$(basename $1)
+	inkscape -d 320 -e  $2/res/drawable-xhdpi/${file/.svg}.png $1 >& /dev/null
+	inkscape -d 240 -e $2/res/drawable-hdpi/${file/.svg}.png $1 >& /dev/null
+	inkscape -d 160 -e $2/res/drawable-mdpi/${file/.svg}.png $1 >& /dev/null
+	inkscape -d 120 -e $2/res/drawable-ldpi/${file/.svg}.png $1 >& /dev/null
 }
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 for f in $(find $1 -name *.svg -type f);
 do
 	if [[ "$f" == *.9.svg* ]]; then
-		./gen9patch.py $f $2
+		$DIR/gen9patch.py $f $2
 	else 
-		processImage
+		processImage $f $2
 	fi
 done

@@ -55,7 +55,7 @@ def create9PatchForDpi(file, dpi, name, resourceLocation):
 	filename = os.path.split(file)[1]
 	filename = filename.replace(".svg", ".png")
 
-	nim.save(resourceLocation + "./res/drawable-" + name  +  "/" + filename)
+	nim.save(resourceLocation + "/res/drawable-" + name  +  "/" + filename)
 
 dir = "./temp"
 if not os.path.exists(dir):
