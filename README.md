@@ -13,6 +13,7 @@ To add a 9patch to generated images, add a hidden layer called 9patch see tag.sv
 
 Requirements
 ----
+* Linux, OS X, (Cygwin? requires inkscape to be on your path.)
 * Inkscape
 * Python
 * PIL
