@@ -13,7 +13,7 @@ function processImage {
 	darwin*)
 		inkscape= "/Applications/Inkscape.app/Contents/Resources/bin/inkscape"
 		;;
-	linux-gnu*)
+	*)
 		inkscape="inkscape"
 		;;
 	esac
