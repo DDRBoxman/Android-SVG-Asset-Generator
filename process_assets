@@ -15,10 +15,10 @@ processImage() {
 	inkscape -d 120 -e $1./res/drawable-ldpi/${file/.svg}.png $f
 }
 
-for f in $(find ./assets/ -name *.svg -type f);
+for f in $(find $1 -name *.svg -type f);
 do
 	if [[ "$f" == *.9.svg* ]]; then
-		./gen9patch.py $f $1
+		./gen9patch.py $f $2
 	else 
 		processImage
 	fi
