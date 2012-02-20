@@ -8,6 +8,12 @@ from PIL import Image
 
 document = ElementTree()
 
+def toBlackOrTransparent(color):
+	if color[3] == 0:
+		return (0,0,0,0)
+	else:
+		return (0,0,0,255)
+
 def create9PatchSvg(file):
 	document.parse(file)
 	root = document.getroot()
@@ -30,12 +36,16 @@ def create9PatchForDpi(file, dpi, name):
 	npix = nim.load()
 
 	for x in range(0, im.size[0]):
-		npix[x+1, 0] = pix[x,0];
-		npix[x+1, newSize[1]-1] = pix[x, im.size[1]-1]
+		data = toBlackOrTransparent(pix[x,0])
+		npix[x+1, 0] = data
+		data = toBlackOrTransparent(pix[x, im.size[1]-1])
+		npix[x+1, newSize[1]-1] = data
 
 	for y in range(0, im.size[1]):
-		npix[0, y+1] = pix[0, y]
-		npix[newSize[0]-1, y+1] = pix[im.size[0]-1, y]
+		data = toBlackOrTransparent(pix[0, y])
+		npix[0, y+1] = data
+		data = toBlackOrTransparent(pix[im.size[0]-1, y])
+		npix[newSize[0]-1, y+1] = data
 
 	subprocess.check_output(["inkscape","-d", str(dpi), "-e", "./temp/out.png", file])
 
