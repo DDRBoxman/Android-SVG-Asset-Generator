@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#Requires Inkscape to be installed.
+
+#This script scales and creates images at the correct dpi level for Android.
+#When creating svg files set the image size to the size that you want your mdpi images to be.
+
+
+processImage() {
+	echo "Processing $f"
+	file=$(basename $f)
+	inkscape -d 320 -e  $1./res/drawable-xhdpi/${file/.svg}.png $f
+	inkscape -d 240 -e $1./res/drawable-hdpi/${file/.svg}.png $f
+	inkscape -d 160 -e $1./res/drawable-mdpi/${file/.svg}.png $f
+	inkscape -d 120 -e $1./res/drawable-ldpi/${file/.svg}.png $f
+}
+
+for f in ./assets/images/*.svg;
+do
+	processImage
+done
+
+for f in ./assets/images/Android/*.svg;
+do
+	if [[ "$f" == *.9.svg* ]]; then
+		./gen9patch.py $f $1
+	else 
+		processImage
+	fi
+done

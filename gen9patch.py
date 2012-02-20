@@ -26,7 +26,7 @@ def create9PatchSvg(file):
 
 	document.write('./temp/9patch.svg')
 		
-def create9PatchForDpi(file, dpi, name):
+def create9PatchForDpi(file, dpi, name, resourceLocation):
 	subprocess.check_output(["inkscape","-d", str(dpi), "-e", "./temp/out.png", "./temp/9patch.svg"])
 
 	im = Image.open("./temp/out.png")
@@ -55,7 +55,7 @@ def create9PatchForDpi(file, dpi, name):
 	filename = os.path.split(file)[1]
 	filename = filename.replace(".svg", ".png")
 
-	nim.save("./res/drawable-" + name  +  "/" + filename)
+	nim.save(resourceLocation + "./res/drawable-" + name  +  "/" + filename)
 
 dir = "./temp"
 if not os.path.exists(dir):
@@ -63,5 +63,5 @@ if not os.path.exists(dir):
 
 create9PatchSvg(sys.argv[1]);
 for (dpi, name) in [(320, "xhdpi"), (240, "hdpi"), (160, "mdpi"), (120, "ldpi")]:
-	create9PatchForDpi(sys.argv[1], dpi, name)
+	create9PatchForDpi(sys.argv[1], dpi, name, sys.argv[2])
 
