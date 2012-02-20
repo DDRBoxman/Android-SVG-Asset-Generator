@@ -10,10 +10,20 @@ function processImage {
 	echo "Processing $1"
 
 	file=$(basename $1)
-	inkscape -d 320 -e  $2/res/drawable-xhdpi/${file/.svg}.png $1 >& /dev/null
-	inkscape -d 240 -e $2/res/drawable-hdpi/${file/.svg}.png $1 >& /dev/null
-	inkscape -d 160 -e $2/res/drawable-mdpi/${file/.svg}.png $1 >& /dev/null
-	inkscape -d 120 -e $2/res/drawable-ldpi/${file/.svg}.png $1 >& /dev/null
+
+	case $OSTYPE in
+	darwin*)
+		inkscape= "/Applications/Inkscape.app/Contents/Resources/bin/inkscape"
+		;;
+	linux-gnu*)
+		inkscape="inkscape"
+		;;
+	esac
+
+	$inkscape -d 320 -e $2/res/drawable-xhdpi/${file/.svg}.png $1 >& /dev/null
+	$inkscape -d 240 -e $2/res/drawable-hdpi/${file/.svg}.png $1 >& /dev/null
+	$inkscape -d 160 -e $2/res/drawable-mdpi/${file/.svg}.png $1 >& /dev/null
+	$inkscape -d 120 -e $2/res/drawable-ldpi/${file/.svg}.png $1 >& /dev/null
 }
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
