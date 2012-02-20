@@ -11,7 +11,7 @@ function processImage {
 
 	case $OSTYPE in
 	darwin*)
-		inkscape= "/Applications/Inkscape.app/Contents/Resources/bin/inkscape"
+		inkscape="/Applications/Inkscape.app/Contents/Resources/bin/inkscape"
 		;;
 	*)
 		inkscape="inkscape"
