@@ -5,6 +5,7 @@ import sys
 from xml.etree.ElementTree import ElementTree
 import subprocess
 from PIL import Image
+import platform
 
 document = ElementTree()
 
@@ -31,7 +32,7 @@ def create9PatchSvg(file):
 		
 def create9PatchForDpi(file, dpi, name, resourceLocation):
 	
-	if (platform.system() == "darwin":
+	if platform.system() == "darwin":
 		inkscapePath = "/Applications/Inkscape.app/Contents/Resources/bin/inkscape"
 	else: 
 		inkscapePath = "inkscape"
