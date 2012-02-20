@@ -19,7 +19,8 @@ def create9PatchSvg(file):
 	root = document.getroot()
 	for elem in root.iter("{http://www.w3.org/2000/svg}g"):
 		layerName = elem.get("{http://www.inkscape.org/namespaces/inkscape}label")
-		if layerName == "9patch":
+		layerId = elem.get("id")
+		if layerName == "9patch" or layerId == "_x39_patch":
 			elem.set('style', '')
 		else:
 			elem.set('style', 'display:none')
