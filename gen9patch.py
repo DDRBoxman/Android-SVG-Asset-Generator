@@ -22,8 +22,10 @@ def create9PatchSvg(file):
 		layerId = elem.get("id")
 		if layerName == "9patch" or layerId == "_x39_patch":
 			elem.set('style', '')
+			elem.set('display', '')
 		else:
 			elem.set('style', 'display:none')
+			elem.set('display', 'none')
 
 	document.write('./temp/9patch.svg')
 		
