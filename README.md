@@ -11,6 +11,12 @@ Ex: an app icon should be 27x27 px at 72dpi so that when scaled up to 240dpi (HD
 
 To add a 9patch to generated images, add a hidden layer called 9patch see tag.svg for an example
 
+Requirements
+----
+* Inkscape
+* Python
+* PIL
+
 Generating Images
 ----
 	
