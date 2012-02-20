@@ -30,7 +30,13 @@ def create9PatchSvg(file):
 	document.write('./temp/9patch.svg')
 		
 def create9PatchForDpi(file, dpi, name, resourceLocation):
-	subprocess.check_output(["inkscape","-d", str(dpi), "-e", "./temp/out.png", "./temp/9patch.svg"])
+	
+	if (platform.system() == "darwin":
+		inkscapePath = "/Applications/Inkscape.app/Contents/Resources/bin/inkscape"
+	else: 
+		inkscapePath = "inkscape"
+	
+	subprocess.check_output([inkscapePath,"-d", str(dpi), "-e", "./temp/out.png", "./temp/9patch.svg"])
 
 	im = Image.open("./temp/out.png")
 	pix = im.load()
@@ -50,7 +56,7 @@ def create9PatchForDpi(file, dpi, name, resourceLocation):
 		data = toBlackOrTransparent(pix[im.size[0]-1, y])
 		npix[newSize[0]-1, y+1] = data
 
-	subprocess.check_output(["inkscape","-d", str(dpi), "-e", "./temp/out.png", file])
+	subprocess.check_output([inkscapePath,"-d", str(dpi), "-e", "./temp/out.png", file])
 
 	im = Image.open("./temp/out.png")
 	nim.paste(im, (1,1))
