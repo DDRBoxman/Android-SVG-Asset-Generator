@@ -11,6 +11,13 @@ Ex: an app icon should be 27x27 px at 72dpi so that when scaled up to 240dpi (HD
 
 To add a 9patch to generated images, add a hidden layer called 9patch see tag.svg for an example
 
+Requirements
+----
+* Linux, OS X, (Cygwin? requires inkscape to be on your path.)
+* Inkscape
+* Python
+* PIL
+
 Generating Images
 ----
 	

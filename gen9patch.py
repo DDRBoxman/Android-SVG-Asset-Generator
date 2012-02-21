@@ -5,6 +5,7 @@ import sys
 from xml.etree.ElementTree import ElementTree
 import subprocess
 from PIL import Image
+import platform
 
 document = ElementTree()
 
@@ -19,15 +20,24 @@ def create9PatchSvg(file):
 	root = document.getroot()
 	for elem in root.iter("{http://www.w3.org/2000/svg}g"):
 		layerName = elem.get("{http://www.inkscape.org/namespaces/inkscape}label")
-		if layerName == "9patch":
+		layerId = elem.get("id")
+		if layerName == "9patch" or layerId == "_x39_patch":
 			elem.set('style', '')
+			elem.set('display', '')
 		else:
 			elem.set('style', 'display:none')
+			elem.set('display', 'none')
 
 	document.write('./temp/9patch.svg')
 		
 def create9PatchForDpi(file, dpi, name, resourceLocation):
-	subprocess.check_output(["inkscape","-d", str(dpi), "-e", "./temp/out.png", "./temp/9patch.svg"])
+	
+	if platform.system() == "Darwin":
+		inkscapePath = "/Applications/Inkscape.app/Contents/Resources/bin/inkscape"
+	else: 
+		inkscapePath = "inkscape"
+	
+	subprocess.check_output([inkscapePath,"-d", str(dpi), "-e", "./temp/out.png", "./temp/9patch.svg"])
 
 	im = Image.open("./temp/out.png")
 	pix = im.load()
@@ -47,7 +57,7 @@ def create9PatchForDpi(file, dpi, name, resourceLocation):
 		data = toBlackOrTransparent(pix[im.size[0]-1, y])
 		npix[newSize[0]-1, y+1] = data
 
-	subprocess.check_output(["inkscape","-d", str(dpi), "-e", "./temp/out.png", file])
+	subprocess.check_output([inkscapePath,"-d", str(dpi), "-e", "./temp/out.png", file])
 
 	im = Image.open("./temp/out.png")
 	nim.paste(im, (1,1))
