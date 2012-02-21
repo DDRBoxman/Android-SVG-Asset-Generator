@@ -24,15 +24,14 @@ function processImage {
 	$inkscape -d 120 -e $2/res/drawable-ldpi/${file/.svg}.png $1 >& /dev/null
 }
 
-timestamp="201002211200.00"
-
-tempfile=mktemp
-trap "rm -f $tempfile" SIGINT SIGTERM
-touch -t $timestamp $tempfile
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-for f in $(find $1 -name *.svg -type f -newer $tempfile);
+if [ ! -e ./lastprocess ]
+then
+	touch -t 197001010100.00 ./lastprocess
+fi
+
+for f in $(find $1 -name *.svg -type f -newer ./lastprocess) ;
 do
 	echo "Processing $f"
 	if [[ "$f" == *.9.svg* ]]; then
@@ -42,4 +41,5 @@ do
 	fi
 done
 
-rm -f $tempfile
+touch -t $(date +%Y%m%d%H%M.%S) ./lastprocess
+
