@@ -1,7 +1,25 @@
 Android SVG Asset Generator
 ----
-Future proof your assets and save time! This tool allows you to create your image assets once and then let the generator do the hard work.
+Future proof your assets and save time! 
+
+This tool allows you to use SVG files for your Android apps resources. 
+
+This means that you only have to create art once or find SVG files online.
+
 SVG images are scaled and put into appropriate folders for android and the 9 patch is applied.
+
+Iconograpy for apps can be quickly generated from content from sites like those below:
+http://www.fileformat.info/info/unicode/char/search.htm
+
+Generating Images
+----
+Example:
+
+	./process_assets ./assets/ ./
+	
+The asset generator code can be kept in a sub folder and called from there. This makes it really easy to include in your project as a git submodule.
+
+	./asset_generator/process_assets ./source_images/ ./AndroidProjectFolder/
 
 Source Image Info
 ----
@@ -17,8 +35,3 @@ Requirements
 * Inkscape
 * Python
 * PIL
-
-Generating Images
-----
-	
-	./process_assets ./assets ./
