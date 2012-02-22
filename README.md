@@ -2,9 +2,9 @@ Android SVG Asset Generator
 ----
 Future proof your assets and save time! 
 
-This tool allows you to use SVG files for your Android apps resources. 
+Create / find once and don't worry about DPI buckets.
 
-This means that you only have to create art once or find SVG files online.
+This tool allows you to use SVG files for your Android apps image resources. 
 
 SVG images are scaled and put into appropriate folders for android and the 9 patch is applied.
 
