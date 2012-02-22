@@ -1,3 +1,5 @@
+SVG -> drawable-xhdpi, drawable-hdpi, drawable-mdpi, drawable-ldpi
+
 Android SVG Asset Generator
 ----
 Future proof your assets and save time! 
