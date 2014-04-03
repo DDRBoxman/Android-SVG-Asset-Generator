@@ -18,6 +18,7 @@ function processImage {
 		;;
 	esac
 
+	$inkscape -d 480 -e $2/res/drawable-xxhdpi/${file/.svg}.png $1 >& /dev/null
 	$inkscape -d 320 -e $2/res/drawable-xhdpi/${file/.svg}.png $1 >& /dev/null
 	$inkscape -d 240 -e $2/res/drawable-hdpi/${file/.svg}.png $1 >& /dev/null
 	$inkscape -d 160 -e $2/res/drawable-mdpi/${file/.svg}.png $1 >& /dev/null
