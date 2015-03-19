@@ -18,6 +18,13 @@ function processImage {
 		;;
 	esac
 
+	mkdir -p $2/res/drawable-xxxhdpi
+	mkdir -p $2/res/drawable-xxhdpi
+	mkdir -p $2/res/drawable-xhdpi
+	mkdir -p $2/res/drawable-hdpi
+	mkdir -p $2/res/drawable-mdpi
+	mkdir -p $2/res/drawable-ldpi
+
 	$inkscape -d 640 -e $2/res/drawable-xxxhdpi/${file/.svg}.png $1 >& /dev/null
 	$inkscape -d 480 -e $2/res/drawable-xxhdpi/${file/.svg}.png $1 >& /dev/null
 	$inkscape -d 320 -e $2/res/drawable-xhdpi/${file/.svg}.png $1 >& /dev/null
